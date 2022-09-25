@@ -1,0 +1,28 @@
+<div class="todo">
+  <header>
+    <h1>TODO</h1>
+    <img class="sun" />
+  </header>
+
+  <div class="todo-container">
+    <form action="#" phx-submit="save">
+      <div class="circle" phx-click="save"></div>
+      <%= text_input :todo, :title, placeholder: "Create a new todo..." %>
+    </form>
+
+    <%= case @todos do %> <% [] -> %> <% _ -> %>
+    <ul class="todo-list">
+      <%= for todo <- @todos do %>
+      <li>
+        <div>
+          <div class="circle"></div>
+          <span> <%= todo.title %> </span>
+        </div>
+        <!-- prettier-ignore-attribute -->
+        <img class="cross" phx-click="delete" phx-value-id={todo.id} />
+      </li>
+      <%= end %>
+    </ul>
+    <%= end %>
+  </div>
+</div>
