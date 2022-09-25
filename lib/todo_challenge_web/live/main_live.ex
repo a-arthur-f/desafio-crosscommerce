@@ -4,6 +4,8 @@ defmodule TodoChallengeWeb.MainLive do
     {:ok, assign(socket, [todos: [], last_index: 0])}
   end
 
+  def handle_event("save", %{"todo" => %{"title" => ""}}, socket), do: {:noreply, socket}
+
   def handle_event("save", %{"todo" => todo}, socket) do
 
     new_index = socket.assigns.last_index + 1
