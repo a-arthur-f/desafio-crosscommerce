@@ -13,7 +13,7 @@
     <%= case @todos do %> <% [] -> %> <% _ -> %>
     <ul class="todo-list">
       <%= for todo <- @todos do %>
-      <li>
+      <li class="todo-text">
         <div>
           <div class="circle"></div>
           <span> <%= todo["title"] %> </span>
@@ -22,7 +22,25 @@
         <img class="cross" phx-click="delete" phx-value-id={todo["id"]} />
       </li>
       <%= end %>
+      <li class="todo-infos">
+        <span><%= length(@todos)%> items left</span>
+        <div class="desktop">
+          <div class="filters">
+            <span>All</span>
+            <span>Active</span>
+            <span>Completed</span>
+          </div>
+        </div>
+        <span class="todo-clear">Clear completed</span>
+      </li>
     </ul>
     <%= end %>
+    <div class="filters-container-mobile">
+      <div class="filters">
+        <span>All</span>
+        <span>Active</span>
+        <span>Completed</span>
+      </div>
+    </div>
   </div>
 </div>

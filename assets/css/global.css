@@ -4,6 +4,7 @@
   --bg-dark-blue: hsl(235, 21%, 11%);
   --color-todo: hsl(235, 24%, 19%);
   --color-border: hsl(237, 14%, 26%);
+  --color-infos: hsl(233, 14%, 35%);
   --bg-check: linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%));
 }
 
