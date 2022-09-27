@@ -83,13 +83,14 @@ header .sun {
   gap: 1rem;
 }
 
-.filters span {
-  cursor: pointer;
+.filters a:hover,
+.filters a:active {
+  color: #fff;
 }
 
-.filters span:hover,
-.filters span:active {
-  color: #fff;
+.filters a {
+  color: var(--color-infos);
+  text-decoration: none;
 }
 
 .filters-container-mobile {
@@ -115,6 +116,10 @@ header .sun {
 
 .done-circle::after {
   content: url("../icons/icon-check.svg");
+}
+
+.filters .active {
+  color: var(--color-primary-blue);
 }
 
 @media (min-width: 1200px) {

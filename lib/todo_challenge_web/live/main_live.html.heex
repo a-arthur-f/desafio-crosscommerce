@@ -12,7 +12,7 @@
 
     <%= case @todos do %> <% [] -> %> <% _ -> %>
     <ul class="todo-list">
-      <%= for todo <- @todos do %>
+      <%= for todo <- filter_todo(assigns.todos, @sort_by) do %>
       <li class="todo-text">
         <div>
           <div class={"circle#{if todo["done"], do: " done-circle"}"} phx-click="done" phx-value-id={todo["id"]}></div>
@@ -26,9 +26,13 @@
         <span><%= @todos |> Enum.count(&(not &1["done"])) %> items left</span>
         <div class="desktop">
           <div class="filters">
-            <span>All</span>
-            <span>Active</span>
-            <span>Completed</span>
+            <%= live_patch "All", to: "/", class: if @sort_by == :all, do: "active" %>
+            <%= live_patch "Active", to: "/?sort_by=active", 
+              class: if @sort_by == :active, do: "active" 
+            %>
+            <%= live_patch "Completed", to: "/?sort_by=completed", 
+              class: if @sort_by == :completed, do: "active"
+            %>
           </div>
         </div>
         <span class="todo-clear" phx-click="clear">Clear completed</span>
@@ -37,9 +41,13 @@
     <% end %>
     <div class="filters-container-mobile">
       <div class="filters">
-        <span>All</span>
-        <span>Active</span>
-        <span>Completed</span>
+        <%= live_patch "All", to: "/", class: if @sort_by == :all, do: "active" %>
+        <%= live_patch "Active", to: "/?sort_by=active", 
+          class: if @sort_by == :active, do: "active" 
+        %>
+        <%= live_patch "Completed", to: "/?sort_by=completed", 
+          class: if @sort_by == :completed, do: "active"
+        %>
       </div>
     </div>
   </div>

@@ -1,7 +1,7 @@
 defmodule TodoChallengeWeb.MainLive do
   use TodoChallengeWeb, :live_view
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, [todos: [], last_index: 0])}
+    {:ok, assign(socket, [todos: [], last_index: 0, sort_by: "all"])}
   end
 
   def handle_event("save", %{"todo" => %{"title" => ""}}, socket), do: {:noreply, socket}
@@ -44,5 +44,23 @@ defmodule TodoChallengeWeb.MainLive do
 
   def handle_event("clear", _params, socket) do
     {:noreply, assign(socket, :todos, socket.assigns.todos |> Enum.filter(fn x -> not x["done"] end))}
+  end
+
+  def filter_todo(todos, sort_by) do
+    case sort_by do
+      :all -> todos
+      :completed -> todos |> Enum.filter(&(&1["done"]))
+      :active -> todos |> Enum.filter(&(not &1["done"]))
+    end
+  end
+
+  def handle_params(params, _uri, socket) do
+    socket =
+      case params["sort_by"] do
+        "active" -> assign(socket, :sort_by, :active)
+        "completed" -> assign(socket, :sort_by, :completed)
+        _ -> assign(socket, :sort_by, :all)
+      end
+    {:noreply, socket}
   end
 end
