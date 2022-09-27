@@ -44,7 +44,8 @@ defmodule TodoChallengeWeb.MainLive do
   end
 
   def handle_event("clear", _params, socket) do
-    {:noreply, assign(socket, :todos, socket.assigns.todos |> Enum.filter(fn x -> not x["done"] end))}
+    socket = assign(socket, :todos, socket.assigns.todos |> Enum.filter(fn x -> not x["done"] end))
+    {:noreply, push_event(socket, "saveTodos", %{todos: socket.assigns})}
   end
 
   def filter_todo(todos, sort_by) do
