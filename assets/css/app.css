@@ -19,6 +19,7 @@ header .sun {
   background-color: var(--color-todo);
   border-radius: 8px;
   overflow-y: auto;
+  font-weight: 400;
 }
 
 .todo-list .todo-text {
@@ -28,7 +29,6 @@ header .sun {
   justify-content: space-between;
   gap: 1rem;
   height: 48px;
-  font-size: 16px;
 }
 
 .todo-list .todo-text div {
@@ -99,6 +99,22 @@ header .sun {
   border-radius: 8px;
   display: flex;
   justify-content: center;
+}
+
+.done-text {
+  text-decoration: line-through;
+  color: var(--color-infos);
+}
+
+.done-circle {
+  background: var(--bg-check);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.done-circle::after {
+  content: url("../icons/icon-check.svg");
 }
 
 @media (min-width: 1200px) {

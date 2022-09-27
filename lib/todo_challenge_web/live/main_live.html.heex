@@ -6,7 +6,7 @@
 
   <div class="todo-container">
     <form action="#" phx-submit="save" phx-hook="saveTodos" id="todo-form">
-      <div class="circle" phx-click="save"></div>
+      <div class="circle"></div>
       <%= text_input :todo, :title, placeholder: "Create a new todo..." %>
     </form>
 
@@ -15,15 +15,15 @@
       <%= for todo <- @todos do %>
       <li class="todo-text">
         <div>
-          <div class="circle"></div>
-          <span> <%= todo["title"] %> </span>
+          <div class={"circle#{if todo["done"], do: " done-circle"}"} phx-click="done" phx-value-id={todo["id"]}></div>
+          <span class={"#{if todo["done"], do: "done-text"}"}> <%= todo["title"] %> </span>
         </div>
         <!-- prettier-ignore-attribute -->
         <img class="cross" phx-click="delete" phx-value-id={todo["id"]} />
       </li>
-      <%= end %>
+      <% end %>
       <li class="todo-infos">
-        <span><%= length(@todos)%> items left</span>
+        <span><%= @todos |> Enum.count(&(not &1["done"])) %> items left</span>
         <div class="desktop">
           <div class="filters">
             <span>All</span>
@@ -31,10 +31,10 @@
             <span>Completed</span>
           </div>
         </div>
-        <span class="todo-clear">Clear completed</span>
+        <span class="todo-clear" phx-click="clear">Clear completed</span>
       </li>
     </ul>
-    <%= end %>
+    <% end %>
     <div class="filters-container-mobile">
       <div class="filters">
         <span>All</span>

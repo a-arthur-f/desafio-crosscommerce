@@ -33,4 +33,16 @@ defmodule TodoChallengeWeb.MainLive do
   def handle_event("restoreTodos", %{"todos" => todos, "last_index" => last_index}, socket) do
     {:noreply, assign(socket, todos: todos, last_index: last_index)}
   end
+
+  def handle_event("done", %{"id" => id}, socket) do
+    index = socket.assigns.todos |> Enum.find_index(fn x -> to_string(x["id"]) == id end)
+    updated_todos = socket.assigns.todos |>
+    List.update_at(index, fn x -> Map.update!(x, "done", &(&1 = true)) end)
+    socket = assign(socket, :todos, updated_todos)
+    {:noreply, push_event(socket, "saveTodos", %{todos: socket.assigns})}
+  end
+
+  def handle_event("clear", _params, socket) do
+    {:noreply, assign(socket, :todos, socket.assigns.todos |> Enum.filter(fn x -> not x["done"] end))}
+  end
 end
