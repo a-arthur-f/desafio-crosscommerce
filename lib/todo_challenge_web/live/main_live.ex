@@ -28,7 +28,8 @@ defmodule TodoChallengeWeb.MainLive do
 
   def handle_event("restoreTodos", %{"todos" => nil}, socket), do: {:noreply, socket}
 
-  def handle_event("restoreTodos", %{"last_index" => last_index}, socket) when not is_integer(last_index), do: {:noreply, socket}
+  def handle_event("restoreTodos", %{"last_index" => last_index}, socket)
+  when not is_integer(last_index), do: {:noreply, socket}
 
   def handle_event("restoreTodos", %{"todos" => todos, "last_index" => last_index}, socket) do
     {:noreply, assign(socket, todos: todos, last_index: last_index)}
